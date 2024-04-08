@@ -1,3 +1,17 @@
+import styled from 'styled-components'
+
+const LogoStyled = styled.span`
+  text-align: center;
+  /* color: ${props => props.color}; */
+  color: ${({ color }) => color};
+`;
+
+
+const LogoStyled1 = styled(LogoStyled)`
+  color: blue;
+`;
+
+
 const Title = () => {
   return (
     <div
@@ -6,7 +20,8 @@ const Title = () => {
     >
       <div className="d-flex fs-4">
         <div className="frame_img"></div>
-        <span className="ms-1">Logo</span>
+        <LogoStyled color="red">Logo</LogoStyled>
+        <LogoStyled1>Logo</LogoStyled1>
       </div>
       <div className="col-third fs-4 position-relative header_Blogs border border-4 border-dark border-top-0 border-bottom-0">
         <div className="border border-4 border-dark border-top-0 border-start-0 position-absolute header_Blogs_row"></div>

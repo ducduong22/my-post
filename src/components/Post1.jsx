@@ -1,18 +1,30 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Reply from "./Reply1";
+import {
+  Link,
+} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { setPosts } from "../store/postSlice";
 
 const Post = () => {
-  const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [postId, setPostId] = useState(0);
+
+  // useSelector dung de lay state trong reducer
+  const posts = useSelector((state) => state.post.posts)
+
+  // dispatch dung de thuc thi action cai ma thay doi state trong reducer
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getDataPost = async () => {
       const getpost = await fetch("https://jsonplaceholder.typicode.com/posts");
       const data = await getpost.json();
 
-      setPosts(data);
+      
+
+      dispatch(setPosts(data));
     };
 
     getDataPost();
@@ -45,6 +57,11 @@ const Post = () => {
               <div className="fw-bolder">Author: John Smith</div>
               <div className="fw-bolder">Create at: Sep 20,2019</div>
               <div className="text-capitalize  mt-4">{post.body}</div>
+
+              <Link to={`/post/${post.id}`}>
+                Detail
+              </Link>
+
               <button
                 className="bg-white text-dark mx-3 mt-5 mb-2 btn btn-transparent fs-6 reply_color"
                 onClick={() => toggleComments(post.id)}
