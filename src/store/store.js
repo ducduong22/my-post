@@ -4,8 +4,5 @@ import postReducer from "./postSlice";
 export const store = configureStore({
   reducer: {
     post: postReducer,
-    comment: postReducer,
-    postId: postReducer,
-    postdetail: postReducer,
   },
 });

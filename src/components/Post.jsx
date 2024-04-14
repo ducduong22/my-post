@@ -1,15 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import Reply from "./Reply";
+import Reply from "./Comment";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setPosts,
   setComments,
   setPostId,
-  setpostdetail,
+  setPostDetail,
 } from "../store/postSlice";
-import PostDetail from "./PostDetail";
 
 const Post = () => {
   // const [comments, setComments] = useState([]);
@@ -19,7 +18,7 @@ const Post = () => {
   const posts = useSelector((state) => state.post.posts);
   const comments = useSelector((state) => state.post.comments);
   const postId = useSelector((state) => state.post.postId);
-  const postdetail = useSelector((state) => state.post.postdetail);
+  const postDetail = useSelector((state) => state.post.postDetail);
 
   // dispatch dung de thuc thi action cai ma thay doi state trong reducer
   const dispatch = useDispatch();
@@ -36,35 +35,31 @@ const Post = () => {
   }, []);
 
   // Khai báo hàm toggleComments nhận đầu vào là postId
-  const toggleComments = async (id) => {
+  const setComment = async (id) => {
     const { data: commentList } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts/${id}/comments`
     );
-    if (!comments.length || postId !== id) {
-      dispatch(setComments(commentList));
-      dispatch(setPostId(id));
-      console.log(commentList);
+    dispatch(setComments(commentList));
+    {
+      /* đùng dể nhấn nút button hiện ra khi chưa con APi và có API nhấn sẽ đóng lại */
     }
+    // if (!comments.length || postId !== id) {
+    //   dispatch(setComments(commentList));
+    //   dispatch(setPostId(id));
+    //   console.log(commentList);
+    // }
     // else {
     //   dispatch(setComments([]));
     //   dispatch(setPostId(0));
     // }
   };
 
-  const getdetail = async (id) => {
-    const { data: detail } = await axios.get(
+  const setDetail = async (id) => {
+    const { data: Detail } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts/${id}`
     );
-    if (!postdetail.length || postId !== id) {
-      dispatch(setpostdetail(detail));
-      dispatch(setPostId(id));
-      console.log(detail);
-    }
-    // else {
-    //   dispatch(setpostdetail([]));
-    //   dispatch(setPostId(0));
-    //   console.log("loi");
-    // }
+
+    dispatch(setPostDetail(Detail));
   };
   return (
     <div>
@@ -79,13 +74,13 @@ const Post = () => {
               <div className="fw-bolder">Create at: Sep 20,2019</div>
               <div className="text-capitalize  mt-4">{post.body}</div>
 
-              <Link to={`/post/${post.id}`} onClick={() => getdetail(post.id)}>
+              <Link to={`/post/${post.id}`} onClick={() => setDetail(post.id)}>
                 Detail
               </Link>
               <Link
                 className="ps-5"
                 to={`/post/${post.id}/comments`}
-                onClick={() => toggleComments(post.id)}
+                onClick={() => setComment(post.id)}
               >
                 Reply
               </Link>

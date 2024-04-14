@@ -5,7 +5,9 @@ const initialState = {
   posts: [],
   comments: [],
   postId: 0,
-  postdetail: [],
+  postDetail: {},
+  // trong js thì dùng là obj còn styercripts dùng là null
+  // APi trả về là mảng nhưng bên trong mảng chưa con là object thì dùng object rỗng, còn nếu chưa s con là mảng thì mới dùng mảng rỗng
 };
 
 export const postSlice = createSlice({
@@ -17,24 +19,20 @@ export const postSlice = createSlice({
       state.posts = payload;
     },
     setComments: (state, action) => {
-      // state.comments = action.payload;
       const { payload } = action;
       state.comments = payload;
     },
     setPostId: (state, action) => {
-      // state.postId = action.payload;
-      const { payload } = action;
-      state.postId = payload;
+      state.postId = action.payload;
     },
-    setpostdetail: (state, action) => {
-      const { payload } = action;
-      state.postdetail = payload;
+    setPostDetail: (state, action) => {
+      state.postDetail = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setPosts, setComments, setPostId, setpostdetail } =
+export const { setPosts, setComments, setPostId, setPostDetail } =
   postSlice.actions;
 
 export default postSlice.reducer;

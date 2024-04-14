@@ -3,7 +3,7 @@ import "./App.css";
 import Title from "./components/Title";
 import Post from "./components/Post";
 import PostDetail from "./components/PostDetail";
-import Reply from "./components/Reply";
+import Comment from "./components/Comment";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/post/:id/comments",
-    element: <Reply />,
+    element: <Comment />,
   },
 ]);
 
