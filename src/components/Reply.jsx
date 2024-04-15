@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 const Reply = () => {
-  const comments = useSelector((state) => state.post.comments);
+  const comments = useSelector(({ post }) => post.comments);
+
   return (
     <div className="mb-3">
       {comments.map(({ id, name, body }) => (
@@ -14,7 +15,7 @@ const Reply = () => {
             ></img>
           </div>
           <div className="col-10 mt-2 ">
-            <div className="mb-1 text-capitalize namecomment_color">{name}</div>
+            <div className="mb-1 text-capitalize nameComment_color">{name}</div>
             <div>{body}</div>
             <button className="bg-white text-dark  mb-2 btn btn-transparent fs-6 reply_color">
               Reply to
