@@ -6,7 +6,9 @@ import PostDetail from "./components/PostDetail";
 import Reply from "./components/Reply";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/configureStore';
+
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+       <PersistGate persistor={persistor}>
+          <RouterProvider router={router} />
+       </PersistGate>
     </Provider>
   );
 }

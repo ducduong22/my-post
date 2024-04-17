@@ -6,16 +6,26 @@ const initialState = {
   comments: [],
   postId: 0,
   postDetail: null,
+  loading: false,
 }
 
 export const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    setPosts: (state, action) => {
+    setPosts: (state) => {
+      state.loading = true
+    },
+    setPostsSuccess: (state, action) => {
       const { payload } = action
       state.posts = payload
+      state.loading = false
     },
+    setPostsFailed: (state) => {
+      state.posts = []
+      state.loading = false
+    },
+
     setComments: (state, action) => {
       const { payload } = action
       state.comments = payload
@@ -32,7 +42,13 @@ export const postSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setPosts, setComments, setPostId, setPostDetail } =
-  postSlice.actions
+export const {
+  setPosts,
+  setPostsSuccess,
+  setPostsFailed,
+  setComments,
+  setPostId,
+  setPostDetail,
+} = postSlice.actions
 
 export default postSlice.reducer

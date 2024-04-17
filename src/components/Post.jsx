@@ -25,14 +25,15 @@ const Post = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getDataPost = async () => {
-      const getPost = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await getPost.json();
+    // const getDataPost = async () => {
+    //   const getPost = await fetch("https://jsonplaceholder.typicode.com/posts");
+    //   const data = await getPost.json();
 
-      dispatch(setPosts(data));
-    };
+    //   dispatch(setPosts(data));
+    // };
 
-    getDataPost();
+    // getDataPost();
+    dispatch(setPosts())
   }, []);
 
   // Khai báo hàm toggleComments nhận đầu vào là postId
