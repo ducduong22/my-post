@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-const comment = () => {
+const Comment = () => {
   const comments = useSelector(({ post }) => post.comments);
 
   console.log(comments);
@@ -27,4 +27,4 @@ const comment = () => {
   );
 };
 
-export default comment;
+export default Comment;
