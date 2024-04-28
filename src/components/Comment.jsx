@@ -1,9 +1,21 @@
+import { useEffect } from 'react'
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  getComments,
+} from "../containers/comment/commentSlice";
 
+// Component
 const Comment = () => {
-  const comments = useSelector(({ post }) => post.comments);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const comments = useSelector(({ comment }) => comment.comments);
+  const errorMsg = useSelector(({ comment }) => comment.error);
+  
+  useEffect(() => {
+    dispatch(getComments(id));
+  }, []);
 
-  console.log(comments);
   return (
     <div className="mb-3">
       {comments.map(({ id, name, body }) => (
@@ -23,6 +35,8 @@ const Comment = () => {
           </div>
         </div>
       ))}
+
+      {errorMsg && <div className="text-danger">{errorMsg}</div>}
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import { applyMiddleware } from "redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { applyMiddleware } from 'redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import createSagaMiddleware from 'redux-saga'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import {
   persistStore,
   persistReducer,
@@ -11,23 +11,23 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import rootReducer from "./reducer";
-import rootSaga from "./saga";
+} from 'redux-persist'
+import rootReducer from './reducer'
+import rootSaga from './saga'
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware()
 
 // Persist configuration
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["post"],
+  whitelist: ['post', 'comment'],
   // Bạn có thể thêm bất kỳ cấu hình redux-persist nào khác tại đây.
   // Ví dụ: bạn có thể muốn thêm `danh sách trắng` hoặc `danh sách đen` để duy trì có chọn lọc các phần của trạng thái.
-};
+}
 
 // Create a persisted reducer
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 // Configure the store
 export const store = configureStore({
@@ -39,9 +39,9 @@ export const store = configureStore({
       },
     }).concat(sagaMiddleware),
   // Add any middleware or enhancers here
-});
+})
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga)
 
 // Create a persistor instance
-export const persistor = persistStore(store);
+export const persistor = persistStore(store)

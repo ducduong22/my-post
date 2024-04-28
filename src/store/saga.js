@@ -1,17 +1,13 @@
-import { all } from "redux-saga/effects";
-import postSaga from "./postSaga";
-import commentSaga from "./commentSaga";
+import { all } from 'redux-saga/effects'
+import postSaga from '../containers/post/postSaga'
+import commentSaga from '../containers/comment/commentSaga'
 
 function* rootSaga() {
   yield all([
     postSaga(),
-
-    // Add other sagas here
-  ]);
-  yield all([
     commentSaga(),
     // Add other sagas here
-  ]);
+  ])
 }
 
-export default rootSaga;
+export default rootSaga

@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setPosts,
-  setComments,
   setPostId,
   setPostDetail,
-} from "../store/postSlice";
+} from "../containers/post/postSlice";
 import PostDetail from "./PostDetail";
-import { getComment } from "../store/api";
 
 const Post = () => {
   // const [comments, setComments] = useState([]);
@@ -36,7 +34,6 @@ const Post = () => {
     // getDataPost();
 
     dispatch(setPosts());
-    dispatch(setComments());
   }, []);
 
   // Khai báo hàm toggleComments nhận đầu vào là postId
@@ -73,7 +70,6 @@ const Post = () => {
               <Link
                 className="ps-5"
                 to={`/post/${post.id}/comments`}
-                onClick={() => getComment(post.id)}
               >
                 Reply
               </Link>

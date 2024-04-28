@@ -14,7 +14,6 @@ const router = createBrowserRouter([
     path: "/post",
     element: (
       <div id="posts-container">
-        <Title />
         <Post />
       </div>
     ),
@@ -33,6 +32,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
+        <Title />
         <RouterProvider router={router} />
       </PersistGate>
     </Provider>

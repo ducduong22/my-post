@@ -1,12 +1,11 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import postReducer from "./postSlice";
-import commentReducer from "./postSlice";
-import postDetailReducer from "./postSlice";
+import { combineReducers } from '@reduxjs/toolkit'
+import postReducer from '../containers/post/postSlice'
+import commentReducer from '../containers/comment/commentSlice'
 
 const rootReducer = combineReducers({
   post: postReducer,
   comment: commentReducer,
-  postDetail: postDetailReducer,
-});
+  // add other reducers here
+})
 
-export default rootReducer;
+export default rootReducer
