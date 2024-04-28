@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import { useParams } from "react-router";
+
 const PostDetail = () => {
   const postDetail = useSelector((state) => state.post.postDetail);
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import Reply from "./Comment";
+import Comment from "./Comment";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,6 +9,8 @@ import {
   setPostId,
   setPostDetail,
 } from "../store/postSlice";
+import PostDetail from "./PostDetail";
+import { getComment } from "../store/api";
 
 const Post = () => {
   // const [comments, setComments] = useState([]);
@@ -16,7 +18,7 @@ const Post = () => {
 
   // useSelector dung de lay state trong reducer
   const posts = useSelector((state) => state.post.posts);
-  const comments = useSelector((state) => state.post.comments);
+  const comments = useSelector((state) => state.comment.comment);
   const postId = useSelector((state) => state.post.postId);
   const postDetail = useSelector((state) => state.post.postDetail);
 
@@ -24,43 +26,34 @@ const Post = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getDataPost = async () => {
-      const getpost = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await getpost.json();
+    // const getDataPost = async () => {
+    //   const getPost = await fetch("https://jsonplaceholder.typicode.com/posts");
+    //   const data = await getPost.json();
 
-      dispatch(setPosts(data));
-    };
+    //   dispatch(setPosts(data));
+    // };
 
-    getDataPost();
+    // getDataPost();
+
+    dispatch(setPosts());
+    dispatch(setComments());
   }, []);
 
   // Khai báo hàm toggleComments nhận đầu vào là postId
-  const setComment = async (id) => {
-    const { data: commentList } = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${id}/comments`
-    );
-    dispatch(setComments(commentList));
-    {
-      /* đùng dể nhấn nút button hiện ra khi chưa con APi và có API nhấn sẽ đóng lại */
-    }
-    // if (!comments.length || postId !== id) {
-    //   dispatch(setComments(commentList));
-    //   dispatch(setPostId(id));
-    //   console.log(commentList);
-    // }
-    // else {
-    //   dispatch(setComments([]));
-    //   dispatch(setPostId(0));
-    // }
-  };
+  // const setComment = async (id) => {
+  //   const { data: commentList } = await axios.get(
+  //     `https://jsonplaceholder.typicode.com/posts/${id}/comments`
+  //   );
+  //   dispatch(setComments(commentList));
+  // };
 
   const setDetail = async (id) => {
-    const { data: Detail } = await axios.get(
+    const { data: detail } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts/${id}`
     );
-
-    dispatch(setPostDetail(Detail));
+    dispatch(setPostDetail(detail));
   };
+
   return (
     <div>
       <div>
@@ -80,7 +73,7 @@ const Post = () => {
               <Link
                 className="ps-5"
                 to={`/post/${post.id}/comments`}
-                onClick={() => setComment(post.id)}
+                onClick={() => getComment(post.id)}
               >
                 Reply
               </Link>

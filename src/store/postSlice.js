@@ -5,25 +5,46 @@ const initialState = {
   posts: [],
   comments: [],
   postId: 0,
-  postDetail: {},
-  // trong js thì dùng là obj còn styercripts dùng là null
-  // APi trả về là mảng nhưng bên trong mảng chưa con là object thì dùng object rỗng, còn nếu chưa s con là mảng thì mới dùng mảng rỗng
+  postDetail: null,
+  loading: false,
 };
 
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    setPosts: (state, action) => {
+    setPosts: (state) => {
+      state.loading = true;
+    },
+    setPostsSuccess: (state, action) => {
       const { payload } = action;
       state.posts = payload;
+      state.loading = false;
     },
+    setPostsFailed: (state) => {
+      state.posts = [];
+      state.loading = false;
+    },
+    ////////////////////////////////////////////////////////
     setComments: (state, action) => {
       const { payload } = action;
       state.comments = payload;
     },
+    setCommentsSuccess: (state, action) => {
+      const { payload } = action;
+      state.comments = payload;
+      state.loading = false;
+    },
+    setCommentsFailed: (state) => {
+      state.comments = [];
+      state.loading = false;
+    },
+
+    ////////////////////////////////////////////////////
     setPostId: (state, action) => {
-      state.postId = action.payload;
+      // state.postId = action.payload;
+      const { payload } = action;
+      state.postId = payload;
     },
     setPostDetail: (state, action) => {
       state.postDetail = action.payload;
@@ -32,7 +53,15 @@ export const postSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setPosts, setComments, setPostId, setPostDetail } =
-  postSlice.actions;
+export const {
+  setPosts,
+  setPostsSuccess,
+  setPostsFailed,
+  setComments,
+  setCommentsSuccess,
+  setCommentsFailed,
+  setPostId,
+  setPostDetail,
+} = postSlice.actions;
 
 export default postSlice.reducer;

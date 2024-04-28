@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const LogoStyled = styled.span`
   text-align: center;
-  /* color: ${(props) => props.color}; */
   color: ${({ color }) => color};
 `;
 
@@ -23,7 +22,7 @@ const Title = () => {
       </div>
       <div className="col-third fs-4 position-relative header_Blogs border border-4 border-dark border-top-0 border-bottom-0">
         <div className="border border-4 border-dark border-top-0 border-start-0 position-absolute header_Blogs_row"></div>
-        <div className="position-relative z-1">Blogs</div>
+        <div className="  position-relative z-1">Blogs</div>
       </div>
       <div className="d-flex align-items-center">
         <img
